@@ -1,0 +1,13 @@
+keepassxc
+firefox
+python
+qbittorrent
+synctrayzor
+7zip
+vscode
+geforce-experience
+git
+discord
+microsoft-teams
+telegram
+spotify
