@@ -6,7 +6,7 @@ import shutil
 from pathlib import Path
 
 def install_chocolatey_packages():
-    subprocess.run(["Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1')) -y"], shell=True)
+    subprocess.run(['Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString(\'https://community.chocolatey.org/install.ps1\')) -y'], shell=True)
 
     with open('packages/chocolatey.txt') as file_handler:
         packages = file_handler.read().replace('\n', ' ')
@@ -15,10 +15,17 @@ def install_chocolatey_packages():
 
 def install_configuration_files(platform):
     CONFIG_METADATA = {
-        "firefox": {
-            "source": Path("./configurations/firefox/distribution/"),
-            "destination": {
-                "Windows": Path("C:\\Program Files\\Mozilla Firefox\\distribution\\")
+        'firefox': {
+            'source': Path('./configurations/firefox/distribution/'),
+            'destination': {
+                'Windows': Path('C:\\Program Files\\Mozilla Firefox\\distribution\\')
+            }
+        },
+        'vscode': {
+            'source': Path('./configurations/vscode/settings.json'),
+            'destination': {
+                'Windows': Path('%APPDATA%\\Code\\User\\settings.json'),
+                'Linux': Path('$HOME/.config/Code/User/settings.json')
             }
         }
     }
