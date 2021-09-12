@@ -19,7 +19,7 @@
             "ExpireAtSessionEnd": false,
             "RejectTracker": true
         },
-        "OfferToSaveLogins": true,
+        "OfferToSaveLogins": false,
         "DisableTelemetry": true,
         "DisableFirefoxStudies": true,
         "Extensions": {
