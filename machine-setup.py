@@ -40,7 +40,7 @@ def install_configuration_files(platform):
             print('Copying configuration file from {} to {}'.format(source, destination))
             shutil.copyfile(source, destination)
 
-def vscode_install_extensions():
+def install_vscode_extensions():
     with open('configurations/vscode/extensions.txt') as file_handler:
         for extension in file_handler.readlines():
             print('Installing VSCode extension: {}'.format(extension))
@@ -55,5 +55,5 @@ if __name__ == '__main__':
             exit(0)
 
         install_chocolatey_packages()
-        vscode_install_extensions()
+        install_vscode_extensions()
         install_configuration_files()
