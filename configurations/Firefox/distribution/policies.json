@@ -30,16 +30,12 @@
                 "https://addons.mozilla.org/firefox/downloads/file/3837362/latest.xpi"
             ]
         },
+        "Homepage": {
+            "URL": "about:home",
+            "StartPage": "homepage"
+        },
         "Preferences": {
             "dom.security.https_only_mode": {
-                "Value": true,
-                "Status": "user"
-            },
-            "privacy.firstparty.isolate": {
-                "Value": true,
-                "Status": "user"
-            },
-            "privacy.donottrackheader.enabled": {
                 "Value": true,
                 "Status": "user"
             },
