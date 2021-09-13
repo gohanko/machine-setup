@@ -5,7 +5,6 @@ qbittorrent
 synctrayzor
 7zip
 vscode
-geforce-experience
 git
 discord
 microsoft-teams
