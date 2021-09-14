@@ -18,7 +18,8 @@ def install_configuration_files(platform):
         'firefox': {
             'source': Path('./configurations/firefox/distribution/'),
             'destination': {
-                'Windows': Path('C:\\Program Files\\Mozilla Firefox\\distribution\\')
+                'Windows': Path('C:\\Program Files\\Mozilla Firefox\\distribution\\'),
+                'Linux': Path('/usr/lib64/firefox/distribution/')
             }
         },
         'vscode': {
