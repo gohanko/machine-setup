@@ -2,7 +2,7 @@ keepassxc
 firefox
 python
 qbittorrent
-synctrayzor
+syncthingtray
 7zip
 vscode
 git

@@ -15,7 +15,7 @@
         "DisablePocket": true,
         "Cookies": {
             "Default": true,
-            "AcceptThirdParty": "never",
+            "AcceptThirdParty": "always",
             "ExpireAtSessionEnd": false,
             "RejectTracker": true
         },
@@ -41,6 +41,26 @@
             },
             "browser.toolbars.bookmarks.visibility": {
                 "Value": "never",
+                "Status": "user"
+            },
+            "media.peerconnection.enabled": {
+                "Value": false,
+                "Status": "user"
+            },
+            "media.peerconnection.turn.disable": {
+                "Value": true,
+                "Status": "user"
+            },
+            "media.peerconnection.use_document_iceservers": {
+                "Value": false,
+                "Status": "user"
+            },
+            "media.peerconnection.video.enabled": {
+                "Value": false,
+                "Status": "user"
+            },
+            "media.peerconnection.identity.timeout": {
+                "Value": 1,
                 "Status": "user"
             }
         }

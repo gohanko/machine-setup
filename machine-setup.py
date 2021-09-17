@@ -25,7 +25,7 @@ def install_configuration_files(platform):
         'vscode': {
             'source': Path('./configurations/vscode/settings.json'),
             'destination': {
-                'Windows': Path('%APPDATA%\\Code\\User\\settings.json'),
+                'Windows': Path('{}\\Code\\User\\settings.json'.format(os.getenv('APPDATA'))),
                 'Linux': Path('$HOME/.config/Code/User/settings.json')
             }
         }
@@ -35,6 +35,10 @@ def install_configuration_files(platform):
         source = CONFIG_METADATA[program]['source']
         destination = CONFIG_METADATA[program]['destination'][platform]
         if os.path.isdir(source):
+            if os.path.exists(destination):
+                print('Removing existing configuration folder at {}'.format(destination))
+                shutil.rmtree(destination)
+
             print('Copying configuration folder from {} to {}'.format(source, destination))
             shutil.copytree(source, destination)
         else:
@@ -57,4 +61,7 @@ if __name__ == '__main__':
 
         install_chocolatey_packages()
         install_vscode_extensions()
-        install_configuration_files()
+    elif platform == 'Linux':
+        pass
+
+    install_configuration_files(platform)
