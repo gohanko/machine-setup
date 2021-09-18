@@ -44,17 +44,6 @@ class UnifiedPackageManager(object):
 
         return SUPPORTED_PACKAGE_MANAGER[package_manager]
 
-    def install_chocolatey(self) -> None:
-        if platform.system() != 'Windows':
-            print('Chocolatey is only available on Windows systems!')
-            exit(0)
-
-        if not self._is_elevated():
-            print('Please run the shell as an admin user!')
-            exit(0)
-
-        subprocess.run(['Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString(\'https://community.chocolatey.org/install.ps1\')) -y'], shell=True)
-
     def add_repository(self, package_manager: str, repository: str) -> None:
         package_manager = self._flight_check(package_manager)
         add_repository_command = [

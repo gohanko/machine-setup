@@ -26,9 +26,6 @@ def recipe_interpreter(recipe: str) -> None:
     unified_package_manager = UnifiedPackageManager()
 
     manage_package = recipe.get('manage_package')
-    if manage_package.get('install_chocolatey'):
-        unified_package_manager.install_chocolatey()
-    
     add_repository = manage_package.get('add_repository')
     if add_repository:
         for package_manager, repositories in add_repository.items():
