@@ -18,7 +18,7 @@ SUPPORTED_PACKAGE_MANAGER = {
         'install': 'install',
         'uninstall': 'uninstall',
         'assume_yes': '-y',
-        'add_repo': 'flatpak remote-add --if-not-exists',
+        'add_repo': 'remote-add --if-not-exists',
     },
     'chocolatey': {
         'command': 'chocolatey',
