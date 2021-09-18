@@ -1,2 +1,0 @@
-com.github.johnfactotum.Foliate
-org.keepassxc.KeePassXC
