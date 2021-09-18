@@ -11,14 +11,14 @@ SUPPORTED_PACKAGE_MANAGER = {
         'install': 'install',
         'uninstall': 'remove',
         'assume_yes': '-y',
-        'add_repo': 'config-manager --add-repo'
+        'add_repo': ['config-manager', '--add-repo']
     },
     'flatpak': {
         'command': 'flatpak',
         'install': 'install',
         'uninstall': 'uninstall',
         'assume_yes': '-y',
-        'add_repo': 'remote-add --if-not-exists',
+        'add_repo': ['remote-add', '--if-not-exists'],
     },
     'chocolatey': {
         'command': 'chocolatey',
