@@ -28,13 +28,13 @@ SUPPORTED_PACKAGE_MANAGER = {
 }
 
 class UnifiedPackageManager(object):
-    def _is_elevated(self):
+    def _is_elevated(self) -> bool:
         if platform.system() == 'Windows':
             return ctypes.windll.shell32.IsUserAnAdmin()
         elif platform.system() == 'Linux': # possibly macos as well
             return os.getuid() == 0
 
-    def _flight_check(self, package_manager) -> dict:
+    def _flight_check(self, package_manager: str) -> dict:
         if not self._is_elevated():
             print('Please run the shell as an admin user!')
             exit(0)
@@ -44,7 +44,7 @@ class UnifiedPackageManager(object):
 
         return SUPPORTED_PACKAGE_MANAGER[package_manager]
 
-    def install_chocolatey(self):
+    def install_chocolatey(self) -> None:
         if platform.system() != 'Windows':
             print('Chocolatey is only available on Windows systems!')
             exit(0)
@@ -55,7 +55,7 @@ class UnifiedPackageManager(object):
 
         subprocess.run(['Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString(\'https://community.chocolatey.org/install.ps1\')) -y'], shell=True)
 
-    def add_repository(self, package_manager, repository):
+    def add_repository(self, package_manager: str, repository: str) -> None:
         package_manager = self._flight_check(package_manager)
         add_repository_command = [
             package_manager.get('command'),
@@ -63,11 +63,10 @@ class UnifiedPackageManager(object):
             repository
         ]
 
-        shutil.run(add_repository_command)
+        subprocess.run(add_repository_command)
 
-    def install(self, package_manager, package_list, assume_yes=True) -> None:
+    def install(self, package_manager: str, package_list: list, assume_yes: bool = True) -> None:
         package_manager = self._flight_check(package_manager)
-        
         install_command = [
             package_manager.get('command'), 
             package_manager.get('install'),
@@ -80,7 +79,7 @@ class UnifiedPackageManager(object):
         print(install_command)
         subprocess.run(install_command)
 
-    def uninstall(self, package_manager, package_list, assume_yes=True) -> None:
+    def uninstall(self, package_manager: str, package_list: list, assume_yes: bool=True) -> None:
         package_manager = self._verify(package_manager)
         
         uninstall_command = [

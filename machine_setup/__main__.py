@@ -6,7 +6,7 @@ from pathlib import Path
 from yaml import load, Loader
 from machine_setup.unified_package_manager import UnifiedPackageManager
 
-def load_yaml(file):
+def load_yaml(file: str) -> dict:
     file = Path(file)
     with open(file, 'r') as file_handler:
         data = load(file_handler, Loader=Loader)
@@ -18,16 +18,22 @@ def load_yaml(file):
 
     return data
 
-def install_vscode_extensions(extensions):
+def install_vscode_extensions(extensions: list) -> None:
     for extension in extensions:
         subprocess.run(['code', '--install-extension', extension], shell=True)
 
-def recipe_interpreter(recipe):
+def recipe_interpreter(recipe: str) -> None:
     unified_package_manager = UnifiedPackageManager()
 
     manage_package = recipe.get('manage_package')
     if manage_package.get('install_chocolatey'):
         unified_package_manager.install_chocolatey()
+    
+    add_repository = manage_package.get('add_repository')
+    if add_repository:
+        for package_manager, repositories in add_repository.items():
+            for repository in repositories:
+                unified_package_manager.add_repository(package_manager, repository)
     
     for package_manager, packages in manage_package.get('install').items():
         unified_package_manager.install(package_manager, packages)
