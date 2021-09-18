@@ -36,9 +36,6 @@ class UnifiedPackageManager(object):
             return os.getuid() == 0
 
     def _flight_check(self, package_manager: str) -> dict:
-        if not self._is_elevated():
-            print('Please run the shell as an admin user!')
-            exit(0)
 
         if shutil.which(package_manager) is None:
             raise NotInstalledException
@@ -48,6 +45,7 @@ class UnifiedPackageManager(object):
     def add_repository(self, package_manager: str, repository: str, source: str) -> None:
         package_manager = self._flight_check(package_manager)
         add_repository_command = [
+            'sudo',
             package_manager.get('command'),
             *package_manager.get('add_repo'),
         ]
@@ -58,24 +56,28 @@ class UnifiedPackageManager(object):
 
         subprocess.run(add_repository_command)
 
-    def install(self, package_manager: str, package_list: list, assume_yes: bool = True) -> None:
+    def install(self, package_manager: str, package_list: list, source: str = None, assume_yes: bool = True) -> None:
         package_manager = self._flight_check(package_manager)
         install_command = [
+            'sudo',
             package_manager.get('command'), 
             package_manager.get('install'),
-            *package_list
         ]
+
+        if source:
+            install_command.append(source)
         
+        install_command = install_command + package_list
         if assume_yes:
             install_command.append(package_manager.get('assume_yes'))
 
-        print(install_command)
         subprocess.run(install_command)
 
     def uninstall(self, package_manager: str, package_list: list, assume_yes: bool=True) -> None:
         package_manager = self._verify(package_manager)
         
         uninstall_command = [
+            'sudo',
             package_manager.get('command'),
             package_manager.get('uninstall'),
             *package_list,

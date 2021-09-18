@@ -38,7 +38,15 @@ def recipe_interpreter(recipe: str) -> None:
                 unified_package_manager.add_repository(package_manager, repository, source)
     
     for package_manager, packages in manage_package.get('install').items():
-        unified_package_manager.install(package_manager, packages)
+        if package_manager == 'flatpak':
+            for flatpak_source, flatpak_packages in packages.items():
+                unified_package_manager.install(
+                    package_manager,
+                    flatpak_packages,
+                    source=flatpak_source
+                )
+        else:
+            unified_package_manager.install(package_manager, packages)
 
     configure_package = recipe.get('configure_package')
     for application, configuration in configure_package.items():
@@ -56,6 +64,9 @@ def recipe_interpreter(recipe: str) -> None:
                 shutil.copytree(source, destination)
             else:
                 print('Copying configuration file from {} to {}'.format(source, destination))
+                if not os.path.exists(destination.parent):
+                    os.makedirs(destination.parent)
+
                 shutil.copyfile(source, destination)
 
         if application == 'vscode' and configuration.get('install_extension'):
