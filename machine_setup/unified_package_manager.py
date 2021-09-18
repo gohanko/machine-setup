@@ -49,7 +49,7 @@ class UnifiedPackageManager(object):
         package_manager = self._flight_check(package_manager)
         add_repository_command = [
             package_manager.get('command'),
-            package_manager.get('add_repo'),
+            *package_manager.get('add_repo'),
             repository
         ]
 
