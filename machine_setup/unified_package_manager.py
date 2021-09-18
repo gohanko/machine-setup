@@ -45,13 +45,16 @@ class UnifiedPackageManager(object):
 
         return SUPPORTED_PACKAGE_MANAGER[package_manager]
 
-    def add_repository(self, package_manager: str, repository: str) -> None:
+    def add_repository(self, package_manager: str, repository: str, source: str) -> None:
         package_manager = self._flight_check(package_manager)
         add_repository_command = [
             package_manager.get('command'),
             *package_manager.get('add_repo'),
-            repository
         ]
+
+        if source:
+            add_repository_command.append(source)
+        add_repository_command.append(repository)
 
         subprocess.run(add_repository_command)
 

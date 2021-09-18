@@ -30,7 +30,12 @@ def recipe_interpreter(recipe: str) -> None:
     if add_repository:
         for package_manager, repositories in add_repository.items():
             for repository in repositories:
-                unified_package_manager.add_repository(package_manager, repository)
+                source = None
+                if package_manager == 'flatpak':
+                    source = repository.split(' ')[0]
+                    repository = repository.split(' ')[1]
+
+                unified_package_manager.add_repository(package_manager, repository, source)
     
     for package_manager, packages in manage_package.get('install').items():
         unified_package_manager.install(package_manager, packages)

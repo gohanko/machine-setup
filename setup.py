@@ -13,7 +13,7 @@ setuptools.setup(
     long_description_content_type='text/markdown',
     url='https://github.com/gohanko/machine-setup',
     packages=setuptools.find_packages(include=['machine_setup', 'machine_setup.*']),
-    install_requires=[],
+    install_requires=['PyYAML==5.4'],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
