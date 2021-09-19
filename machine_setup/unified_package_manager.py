@@ -45,7 +45,6 @@ class UnifiedPackageManager(object):
     def add_repository(self, package_manager: str, repository: str, source: str) -> None:
         package_manager = self._flight_check(package_manager)
         add_repository_command = [
-            'sudo',
             package_manager.get('command'),
             *package_manager.get('add_repo'),
         ]
@@ -59,7 +58,6 @@ class UnifiedPackageManager(object):
     def install(self, package_manager: str, package_list: list, source: str = None, assume_yes: bool = True) -> None:
         package_manager = self._flight_check(package_manager)
         install_command = [
-            'sudo',
             package_manager.get('command'), 
             package_manager.get('install'),
         ]
@@ -77,7 +75,6 @@ class UnifiedPackageManager(object):
         package_manager = self._verify(package_manager)
         
         uninstall_command = [
-            'sudo',
             package_manager.get('command'),
             package_manager.get('uninstall'),
             *package_list,
