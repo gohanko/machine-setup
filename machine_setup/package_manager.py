@@ -58,10 +58,10 @@ class GeneralPackageManager(object):
         self._flight_check()
         supported_package_manager = SUPPORTED_PACKAGE_MANAGER[package_manager]
         base_install_command = [supported_package_manager.get('command'), *supported_package_manager.get('install')]
-        if repository_name:
-            base_install_command.append(repository_name)
         if assume_yes:
             base_install_command.append(supported_package_manager.get('assume_yes'))
+        if repository_name:
+            base_install_command.append(repository_name)
 
         print('{}Installing the following packages:{}'.format(Fore.CYAN, Style.RESET_ALL))
         success_counter = 0
