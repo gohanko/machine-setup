@@ -1,2 +1,0 @@
-class NotInstalledException(Exception):
-    pass
